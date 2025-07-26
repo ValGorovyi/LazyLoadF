@@ -1,7 +1,7 @@
-import 'package:big_study/widgets/app_widget.dart';
-import 'package:flutter/material.dart';
+import 'package:big_study/widgets/childLayaudAppThree.dart';
+import 'package:flutter/widgets.dart';
 
 void main() {
-  final aplication = AppWidget();
-  runApp(aplication);
+  // final app = ChildLayaudApp();
+  runApp(ChildLayaudApp());
 }

@@ -52,8 +52,7 @@ class FirstInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextField(
-      onChanged: (value) =>
-          SimpleCalcInherit.of(context)?.model.firstNum = value,
+      onChanged: (value) => SimpleCalcInherit.of(context)?.firstNum = value,
     );
   }
 }
@@ -64,8 +63,7 @@ class SecondInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextField(
-      onChanged: (value) =>
-          SimpleCalcInherit.of(context)?.model.secondNum = value,
+      onChanged: (value) => SimpleCalcInherit.of(context)?.secondNum = value,
     );
   }
 }
@@ -77,34 +75,37 @@ class ButtonToCalc extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: () {
-        SimpleCalcInherit.of(context)?.model.sum();
+        SimpleCalcInherit.of(context)?.sum();
       },
       child: Text('Tab to show result'),
     );
   }
 }
 
-class ResultWidget extends StatefulWidget {
+// class ResultWidget extends StatefulWidget {
+//   const ResultWidget({super.key});
+
+//   @override
+//   State<ResultWidget> createState() => _ResultWidgetState();
+// }
+
+class ResultWidget extends StatelessWidget {
+  // String result = '...';
+
   const ResultWidget({super.key});
-
-  @override
-  State<ResultWidget> createState() => _ResultWidgetState();
-}
-
-class _ResultWidgetState extends State<ResultWidget> {
-  String result = '...';
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    final model = SimpleCalcInherit.of(context)?.model;
-    model?.addListener(() {
-      result = '${model.resultNum}';
-      setState(() {});
-    });
-  }
+  // @override
+  // void didChangeDependencies() {
+  //   super.didChangeDependencies();
+  //   final model = SimpleCalcInherit.of(context)?.model;
+  //   model?.addListener(() {
+  //     result = '${model.resultNum}';
+  //     setState(() {});
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
+    final result = SimpleCalcInherit.of(context)?.resultNum ?? '---';
     return Text('Result => $result');
   }
 }

@@ -1,16 +1,22 @@
 import 'package:flutter/material.dart';
 
-class SimpleCalcInherit extends InheritedWidget {
+class SimpleCalcInherit extends InheritedNotifier<SimpleCalcWidgetModel> {
   final SimpleCalcWidgetModel model;
-  SimpleCalcInherit({required this.model, required super.child});
-  static SimpleCalcInherit? of(BuildContext context) {
-    return context.dependOnInheritedWidgetOfExactType<SimpleCalcInherit>();
+  const SimpleCalcInherit({
+    super.key,
+    required this.model,
+    required super.child,
+  }) : super(notifier: model);
+  static SimpleCalcWidgetModel? of(BuildContext context) {
+    return context
+        .dependOnInheritedWidgetOfExactType<SimpleCalcInherit>()
+        ?.model;
   }
 
-  @override
-  bool updateShouldNotify(covariant SimpleCalcInherit oldWidget) {
-    return model != oldWidget.model;
-  }
+  // @override
+  // bool updateShouldNotify(covariant SimpleCalcInherit oldWidget) {
+  //   return model != oldWidget.model;
+  // }
 }
 
 class SimpleCalcWidgetModel extends ChangeNotifier {

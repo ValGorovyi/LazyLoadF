@@ -52,7 +52,7 @@ class FirstInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextField(
-      onChanged: (value) => SimpleCalcInherit.of(context)?.firstNum = value,
+      onChanged: (value) => SimpleCalcInherit.read(context)?.firstNum = value,
     );
   }
 }
@@ -63,7 +63,7 @@ class SecondInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextField(
-      onChanged: (value) => SimpleCalcInherit.of(context)?.secondNum = value,
+      onChanged: (value) => SimpleCalcInherit.read(context)?.secondNum = value,
     );
   }
 }
@@ -75,7 +75,7 @@ class ButtonToCalc extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: () {
-        SimpleCalcInherit.of(context)?.sum();
+        SimpleCalcInherit.read(context)?.sum();
       },
       child: Text('Tab to show result'),
     );
@@ -105,7 +105,7 @@ class ResultWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final result = SimpleCalcInherit.of(context)?.resultNum ?? '---';
+    final result = SimpleCalcInherit.watchOf(context)?.resultNum ?? '---';
     return Text('Result => $result');
   }
 }

@@ -7,10 +7,18 @@ class SimpleCalcInherit extends InheritedNotifier<SimpleCalcWidgetModel> {
     required this.model,
     required super.child,
   }) : super(notifier: model);
-  static SimpleCalcWidgetModel? of(BuildContext context) {
+  static SimpleCalcWidgetModel? watchOf(BuildContext context) {
     return context
         .dependOnInheritedWidgetOfExactType<SimpleCalcInherit>()
         ?.model;
+  }
+
+  static SimpleCalcWidgetModel? read(BuildContext context) {
+    final widget = context
+        .getElementForInheritedWidgetOfExactType<SimpleCalcInherit>()
+        ?.widget;
+    // notifier!
+    return widget is SimpleCalcInherit ? widget.notifier : null;
   }
 
   // @override

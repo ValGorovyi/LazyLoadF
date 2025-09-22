@@ -1,3 +1,7 @@
+import 'dart:convert';
+
+import 'package:big_study/jsonLesDataDemo/exampleData.dart';
+import 'package:big_study/jsonLesDataDemo/humanData.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -40,8 +44,27 @@ class JsonInherit extends InheritedWidget {
 }
 
 class JsonCoder {
-  void decode() {}
-  void encode() {}
+  void decode() {
+    try {
+      final myJson = jsonDecode(jsonData) as List<dynamic>;
+      final humans = myJson
+          .map((dynamic e) => Human.fromJson(e as Map<String, dynamic>))
+          .toList();
+      print(humans);
+    } catch (error) {
+      print(error); // instance of Human
+    }
+  }
+
+  void encode() {
+    try {
+      final obj = humansDataNoJson.map((elem) => elem.toJson()).toList();
+      final jsonString = jsonEncode(obj);
+      print(jsonString);
+    } catch (error) {
+      print(error);
+    }
+  }
 }
 
 class ButtonWidget extends StatelessWidget {
@@ -50,8 +73,14 @@ class ButtonWidget extends StatelessWidget {
     return Center(
       child: Column(
         children: [
-          ElevatedButton(onPressed: () {}, child: Text('DeCode')),
-          ElevatedButton(onPressed: () {}, child: Text('EnCode')),
+          ElevatedButton(
+            onPressed: () => JsonInherit.read(context)?.coder.decode(),
+            child: Text('DeCode'),
+          ),
+          ElevatedButton(
+            onPressed: () => JsonInherit.read(context)?.coder.encode(),
+            child: Text('EnCode'),
+          ),
         ],
       ),
     );

@@ -41,4 +41,23 @@ class ApiClient {
     final jsonString = jsonSrtings.join();
     return jsonDecode(jsonString);
   }
+
+  Future<Posts> createPost() async {
+    final myUrl = Uri.parse('https://jsonplaceholder.typicode.com/posts');
+    final params = <String, dynamic>{
+      'title': 'demo title',
+      'body': 'val done',
+      'userId': 321,
+    };
+    final myReq = await client.postUrl(myUrl);
+    myReq.headers.set('Content-type', 'application/json; charset=UTF-8');
+    myReq.write(jsonEncode(params));
+    final myRes = await myReq.close();
+    final jsonSrtings = await myRes.transform(utf8.decoder).toList();
+    final jsonString = jsonSrtings.join();
+    final json = jsonDecode(jsonString);
+    final post = Posts.fromJson(json);
+    print(post);
+    return post;
+  }
 }

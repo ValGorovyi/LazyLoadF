@@ -55,8 +55,7 @@ class _CreateButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: () {},
-      // () => apiInherit.read(context)?.model.createPosts(),
+      onPressed: () => apiInherit.read(context)?.model.createPosts(),
       child: Text('Create Posts'),
     );
   }

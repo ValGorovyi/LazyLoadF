@@ -13,5 +13,8 @@ class modelApi extends ChangeNotifier {
     notifyListeners();
   }
 
-  // Future<void> createPosts(){}
+  Future<void> createPosts() async {
+    final demoPost = await apiCl.createPost();
+    notifyListeners();
+  }
 }

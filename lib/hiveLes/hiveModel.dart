@@ -1,17 +1,64 @@
+import 'dart:convert';
+
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hive/hive.dart';
 
 class HiveModel {
-  void interactionWithDB() async {
+  Future<Box<User>>? usersBox;
+
+  void setup() {
     if (!Hive.isAdapterRegistered(0)) {
       Hive.registerAdapter(UserAdapter());
     }
-    var usersBox = await Hive.openBox<dynamic>('usersBox');
-    final userGuest = User(0, 'Guest');
-    // usersBox.add(userGuest);
-    print(usersBox.values);
+    usersBox = Hive.openBox('usersBox');
+
+    usersBox?.then((box) {
+      box.listenable().addListener(() {
+        print('${box.length} <<<<<<<<<<<<<<<');
+        print(box.values);
+      });
+    });
+  }
+
+  void interactionWithDB() async {
+    final myUserBox = await usersBox;
+    final randomUser = User(44, 'ffffdsa');
+    await myUserBox?.add(randomUser);
   }
 }
+
+// class HiveModel {
+//   void interactionWithDB() async {
+//     const securityStore = FlutterSecureStorage();
+//     final containsEncrKey = await securityStore.containsKey(key: 'valDone228');
+//     if (!containsEncrKey) {
+//       final myKey = Hive.generateSecureKey();
+//       await securityStore.write(key: 'valDone228', value: base64Encode(myKey));
+//     }
+//     final key = await securityStore.read(key: 'valDone228');
+//     final encriptKey = base64Url.decode(key!);
+//     print(encriptKey);
+//     var encriptBox = await Hive.openBox<String>(
+//       'myEncriptBox',
+//       encryptionCipher: HiveAesCipher(encriptKey),
+//     );
+//     await encriptBox.put('ky', 'myBox');
+//     print(encriptBox.get('ky'));
+//   }
+// }
+
+// class HiveModel {
+//   void interactionWithDB() async {
+//     if (!Hive.isAdapterRegistered(0)) {
+//       Hive.registerAdapter(UserAdapter());
+//     }
+//     var usersBox = await Hive.openBox<dynamic>('usersBox');
+//     final userGuest = User(0, 'Guest');
+//     // usersBox.add(userGuest);
+//     print(usersBox.values);
+//   }
+// }
 
 class User {
   String name;

@@ -18,9 +18,17 @@ class HiveLessonW extends StatelessWidget {
       appBar: AppBar(centerTitle: true, title: Text('Hive')),
       body: SafeArea(
         child: Center(
-          child: ElevatedButton(
-            onPressed: () => model.interactionWithDB(),
-            child: Text('interaction with the database'),
+          child: Column(
+            children: [
+              ElevatedButton(
+                onPressed: () => model.interactionWithDB(),
+                child: Text('interaction with the database'),
+              ),
+              ElevatedButton(
+                onPressed: () => model.setup(),
+                child: Text('Setup database'),
+              ),
+            ],
           ),
         ),
       ),
